@@ -14,7 +14,29 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+
+  let categoryTotals = [];
+
+  transactions.forEach(transaction => {
+    let { category, price } = transaction;
+
+    let isCategory = false; // To check if the current category exists in categoryTotals or not
+    categoryTotals.forEach(obj => {
+      if (obj.category === category) {
+        obj.totalSpent += price;
+        isCategory = true;
+      }
+    })
+
+    // If the category is not present in categoryTotals
+    if(!isCategory){
+      categoryTotals.push({ category: category, totalSpent: price });
+    }
+
+  });
+
+  return categoryTotals;
+
 }
 
 module.exports = calculateTotalSpentByCategory;
